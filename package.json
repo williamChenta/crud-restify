@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "mysql": "^2.14.1",
-    "restify": "^5.2.0"
+    "restify": "^5.2.0",
+    "restify-cors-middleware": "^1.1.0"
   }
 }

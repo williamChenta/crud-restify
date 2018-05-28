@@ -6,6 +6,16 @@ const config = require('./config'),
 var connection = config.db.get;
 
 /**
+ * habilitando cors. para poder acessar através de um cliente no mesmo dominio
+ */
+var corsMiddleware = require('restify-cors-middleware');
+
+var cors = corsMiddleware({
+  preflightMaxAge: 5,
+  origins: ['*']
+});
+
+/**
  * Initialize Server
  */
 const server = restify.createServer({
@@ -14,7 +24,13 @@ const server = restify.createServer({
     url: config.hostname
 });
 
+//ainda habilitando cors
+server.pre(cors.preflight);
+server.use(cors.actual);
 
+/**
+ * habilitando parser json para receber corretamente os valores json vindos da requisição, post e put
+ */
 server.use(restify.plugins.queryParser({
     mapParams: true
 }));
